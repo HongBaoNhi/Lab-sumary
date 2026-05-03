@@ -1,0 +1,43 @@
+CREATE DATABASE SchoolDB;
+GO
+USE SchoolDB;
+GO
+
+CREATE TABLE Departments (
+    DepartmentID INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(50) NOT NULL,
+    Budget DECIMAL(18, 2) NOT NULL,
+    StartDate DATE NOT NULL
+);
+
+CREATE TABLE Instructors (
+    InstructorID INT PRIMARY KEY IDENTITY(1,1),
+    FirstName NVARCHAR(50) NOT NULL,
+    LastName NVARCHAR(50) NOT NULL,
+    HireDate DATE NOT NULL
+);
+
+CREATE TABLE Courses (
+    CourseID INT PRIMARY KEY IDENTITY(1,1),
+    Title NVARCHAR(100) NOT NULL,
+    Credits INT NOT NULL,
+    DepartmentID INT FOREIGN KEY REFERENCES Departments (DepartmentID)
+);
+
+CREATE TABLE Students (
+    StudentID INT PRIMARY KEY IDENTITY(1,1),
+    FirstName NVARCHAR(50) NOT NULL,
+    LastName NVARCHAR(50) NOT NULL,
+    EnrollmentDate DATE NOT NULL
+);
+
+CREATE TABLE Enrollments (
+    EnrollmentID INT PRIMARY KEY IDENTITY(1,1),
+    CourseID INT FOREIGN KEY REFERENCES Courses (CourseID),
+    StudentID INT FOREIGN KEY REFERENCES Students (StudentID),
+    Grade DECIMAL(3, 2)
+);
+
+-- Chèn dữ liệu mẫu
+INSERT INTO Departments VALUES ('IT', 50000, '2024-01-01');
+INSERT INTO Students VALUES ('Nguyen', 'An', '2024-09-01');
